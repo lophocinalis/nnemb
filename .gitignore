@@ -1,5 +1,12 @@
-/demo
-!/demo/gpu/
+/*/
+!/nnemb
+!/demo
+demo/*
+!/demo/gpu
+/demo/gpu/*
+!/demo/gpu/train-nn.py
+
+
 !.gitignore
 !LICENSE
 !README.md

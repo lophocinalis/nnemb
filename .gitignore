@@ -1,0 +1,15 @@
+/*/
+!/demo/gpu/train-nn.py
+!/nnemb
+!.gitignore
+!LICENSE
+!README.md
+
+# bash scirpts, just in case I forgot to delete
+**/*.sh
+
+# OS files
+**/.DS_Store
+
+# python cache
+**/__pycache__

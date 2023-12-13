@@ -33,8 +33,8 @@ class NeuralNetworkEmbeddingPotential:
         with torch.no_grad():
             for layer in self.nn.fcs:
                 print(layer, 'filling zero weights and biases')
-                layer.weight = nn.Parameter(torch.zeros_like(layer.weight, dtype=torch.double))
-                layer.bias = nn.Parameter(torch.zeros_like(layer.bias, dtype=torch.double))
+                layer.weight = nn.Parameter(torch.zeros_like(layer.weight, dtype=torch.float32))
+                layer.bias = nn.Parameter(torch.zeros_like(layer.bias, dtype=torch.float32))
 
 if __name__ == '__main__':
     fc_dims = [40, 40, 40]
@@ -51,7 +51,7 @@ if __name__ == '__main__':
         pass
 
     test_input = np.array([0.0,]*descriptor_dim)
-    test_input = torch.from_numpy(test_input).double()
+    test_input = torch.from_numpy(test_input).float()
     with torch.no_grad():
         test_output = nnemb.nn(test_input)
         # for sigmoid

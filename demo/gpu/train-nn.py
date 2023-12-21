@@ -42,8 +42,7 @@ descriptor_dim = all_descriptors.shape[-1]
 #fc_dims = [160, 160, 80, 40, 20]
 fc_dims = [160, 80, 40, 20]
 nnemb = NeuralNetworkEmbeddingPotential(descriptor_dim, fc_dims)
-nnemb.set_nn()
-nnemb.nn.to(device)
+nnemb.to(device)
 
 X = all_descriptors
 y /= yfactor
@@ -80,14 +79,14 @@ train_dataloader = DataLoader(dataset=train_data, batch_size=batch_size, shuffle
 loss_function = nn.MSELoss()
 learning_rate = 1e-3
 #optimizer = optim.LBFGS(nnemb.nn.parameters(), lr=learning_rate)
-optimizer = optim.Adam(nnemb.nn.parameters(), lr=learning_rate)
+optimizer = optim.Adam(nnemb.parameters(), lr=learning_rate)
 
 #num_epochs = 10000
 #profiling
 num_epochs = 10
 loss_values = []
 
-print(next(nnemb.nn.parameters()).device)
+print(next(nnemb.parameters()).device)
 sys.stdout.flush()
 for epoch in tqdm.tqdm(range(num_epochs)):
 #for epoch in range(num_epochs):
@@ -99,7 +98,7 @@ for epoch in tqdm.tqdm(range(num_epochs)):
         #print(y.is_cuda)
         #sys.stdout.flush()
         optimizer.zero_grad()
-        pred = nnemb.nn(X)
+        pred = nnemb(X)
         #print(pred.is_cuda)
         #sys.stdout.flush()
         loss = loss_function(pred, y)

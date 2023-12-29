@@ -57,6 +57,8 @@ class Data(Dataset):
     def __init__(self, X, y):
         self.X = torch.from_numpy(X.astype(np.float32))
         self.y = torch.from_numpy(y.astype(np.float32))
+        self.X = self.X.to(device)
+        self.y = self.y.to(device)
         self.len = self.X.shape[0]
        
     def __getitem__(self, index):
@@ -86,17 +88,17 @@ optimizer = optim.Adam(nnemb.parameters(), lr=learning_rate)
 num_epochs = 10
 loss_values = []
 
-print(next(nnemb.parameters()).device)
-sys.stdout.flush()
+#print(next(nnemb.parameters()).device)
+#sys.stdout.flush()
 for epoch in tqdm.tqdm(range(num_epochs)):
 #for epoch in range(num_epochs):
     #print(epoch)
     #sys.stdout.flush()
     for X, y in train_dataloader:
-        X, y = X.to(device), y.unsqueeze(-1).to(device)
-        #print(X.is_cuda)
-        #print(y.is_cuda)
-        #sys.stdout.flush()
+        X, y = X, y.unsqueeze(-1)
+        print(X.is_cuda)
+        print(y.is_cuda)
+        sys.stdout.flush()
         optimizer.zero_grad()
         pred = nnemb(X)
         #print(pred.is_cuda)

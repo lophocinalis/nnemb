@@ -56,7 +56,7 @@ print(y_train.shape)
 class Data(Dataset):
     def __init__(self, X, y):
         self.X = torch.from_numpy(X.astype(np.float32))
-        self.y = torch.from_numpy(y.astype(np.float32))
+        self.y = torch.from_numpy(y.astype(np.float32)).unsqueeze(-1)
         self.X = self.X.to(device)
         self.y = self.y.to(device)
         self.len = self.X.shape[0]
@@ -95,10 +95,10 @@ for epoch in tqdm.tqdm(range(num_epochs)):
     #print(epoch)
     #sys.stdout.flush()
     for X, y in train_dataloader:
-        X, y = X, y.unsqueeze(-1)
-        print(X.is_cuda)
-        print(y.is_cuda)
-        sys.stdout.flush()
+        X, y = X, y
+        #print(X.is_cuda)
+        #print(y.is_cuda)
+        #sys.stdout.flush()
         optimizer.zero_grad()
         pred = nnemb(X)
         #print(pred.is_cuda)

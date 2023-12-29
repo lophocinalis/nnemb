@@ -95,7 +95,7 @@ for epoch in tqdm.tqdm(range(num_epochs)):
     #print(epoch)
     #sys.stdout.flush()
     for X, y in train_dataloader:
-        X, y = X, y
+        #X, y = X, y
         #print(X.is_cuda)
         #print(y.is_cuda)
         #sys.stdout.flush()
